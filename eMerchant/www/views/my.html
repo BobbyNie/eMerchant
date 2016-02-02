@@ -1,4 +1,7 @@
 <ion-view view-title="我">
+  <ion-nav-buttons side="right">
+    <button class="button button-icon icon ion-settings" ng-click=""></button>
+  </ion-nav-buttons>
   <ion-content class="setting">
     <ion-list>
       <ion-item class="item-divider item-gap">
@@ -28,7 +31,7 @@
 
       <!--   <ion-item class="item-toggle">
       仅在Wi-Fi下显示头像
-      <label class="toggle toggle-positive">
+      <label class="toggle toggle-assertive">
         <input type="checkbox" ng-checked="settings.saverMode" ng-model="settings.saverMode">
         <div class="track">
           <div class="handle"></div>
@@ -65,7 +68,7 @@
       </ion-item>
     </ion-list>
 
-    <button class="button button-full button-positive" ng-click="logout()">
+    <button class="button button-full button-assertive" ng-click="logout()">
       退出登录
     </button>
 

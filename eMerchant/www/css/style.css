@@ -1,1 +1,5 @@
-/* Empty. Add your own CSS if you like */
+#copyright {
+    margin: 20px 0 10px;
+    text-align: center;
+    color: #aaa;
+    text-shadow: 0 1px 0 #fff; }/* Empty. Add your own CSS if you like */

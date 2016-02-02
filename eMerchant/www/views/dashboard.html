@@ -1,19 +1,22 @@
 <ion-view view-title="惠生活-商户端" name="dashboard-view">
   <ion-nav-buttons side="right">
-    <button class="button icon-left ion-log-out button-stable" ng-click="logout()">退出</button>
+    <button class="button button-icon icon ion-android-exit" ng-click="logout()"></button>
   </ion-nav-buttons>
 
   <ion-content class="padding">
     <div class="row"><div class="col text-center">
       <h3 class="title">Welcome {{username}}!</h3>
       <br><br>
-      <button class="button button-full button-positive" ng-click="scanBarcode()">
+      <button class="button button-full button-assertive" ng-click="scanBarcode()">
         扫码收款
       </button>
-      <button class="button button-full button-positive" ng-click="performValidRequest()">
+      <button class="button button-full button-assertive" ng-click="change()">
+        跳转
+      </button>
+      <button class="button button-full button-assertive" ng-click="performValidRequest()">
         Make Valid Request
       </button>
-      <button class="button button-full button-energized" ng-click="performUnauthorizedRequest()">
+      <button class="button button-full button-assertive" ng-click="performUnauthorizedRequest()">
         Make Request for unauthorized resource
       </button>
       <button class="button button-full button-assertive" ng-click="performInvalidRequest()">

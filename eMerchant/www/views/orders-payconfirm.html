@@ -1,0 +1,19 @@
+<ion-view view-title="店员：{{username}}" name="payconfirm-view" class="col-center">
+  <ion-nav-buttons side="left">
+    <button class="button button-icon ion-arrow-left-a" ng-click="impMoneyGoBack()"></i> </button>
+  </ion-nav-buttons>
+
+  <ion-content class="padding">
+    <div class="list list-inset">
+      <label class="label"><h4>收银总金额: </h4>
+        <input type="text" placeholder="请输入总金额" ng-model="data.totalMoney"><h4></h4>
+      </label>
+      <label class="input-label"><h5>Total Mount: </h5></label>
+      <br><br>
+      <label class="label"><h3>手机号: {{mobile}}</h3></label>
+    </div>
+    <br><br><br><br><br><br>
+
+    <button class="button button-block button-assertive" ng-click="calculateMoney(data)">确认金额</button>
+  </ion-content>
+</ion-view>
