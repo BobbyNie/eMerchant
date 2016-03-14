@@ -44,7 +44,7 @@
 			<property name="openjpa.ConnectionPassword" value="password"/> 
 			-->
 			<!-- 部署配置
-			<property name="openjpa.ConnectionURL" value="jdbc:oracle:thin:@123.12.14.113:1521:wlife"/>
+			<property name="openjpa.ConnectionURL" value="jdbc:oracle:thin:@123.12.14.113:11521:wlife"/>
 			<property name="openjpa.ConnectionUserName" value="hshop"/>
 			<property name="openjpa.ConnectionPassword" value="hshop"/> 
 			 -->
