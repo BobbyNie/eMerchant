@@ -1,5 +1,13 @@
 package org.directwebremoting;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.directwebremoting.emerchant.TokenIdNullException;
 import org.directwebremoting.emerchant.TokenNotExistsException;
 import org.directwebremoting.extend.Call;
@@ -10,10 +18,12 @@ import org.directwebremoting.impl.DefaultRemoter;
 import org.directwebremoting.util.JavascriptUtil;
 import org.directwebremoting.util.LocalUtil;
 
+import com.alibaba.fastjson.JSON;
 import com.icbc.IcbcUtil;
 import com.icbc.mo.emerchant.intf.IntfReturnObj;
 import com.icbc.mo.emerchant.store.StoreToken;
  
+
 
 /** 
  * 
@@ -22,6 +32,7 @@ import com.icbc.mo.emerchant.store.StoreToken;
  */
 public class AngularRemoter extends DefaultRemoter  {
 
+	private static Log callLog = LogFactory.getLog("org.directwebremoting.log.calls");
 	public int getMaxCallCount() {
 		return this.maxCallCount;
 	}
@@ -113,10 +124,46 @@ public class AngularRemoter extends DefaultRemoter  {
 			return r;
 		}
 	}
-
+   
+	private static String parmsToJsonString(Object[] parms) {
+		if(parms == null) {
+			return "null";
+		}
+		StringBuffer stringBuffer = new StringBuffer();
+		for(Object obj :parms) {
+			if(parms == null) {
+				stringBuffer.append("null,"); 
+			}else if(obj instanceof HttpServletRequest ||
+					obj instanceof HttpServletResponse ||
+					obj instanceof ServletConfig ||
+					obj instanceof ServletContext ||
+					obj instanceof  HttpSession) {
+				stringBuffer.append(obj.getClass().getName());
+				stringBuffer.append(",");
+			}else {
+				stringBuffer.append(JSON.toJSONString(obj));
+				stringBuffer.append(",");
+			}
+		}
+		if(stringBuffer.length() > 0)stringBuffer.setLength( stringBuffer.length() - 1);
+		return stringBuffer.toString();
+	}
 	@Override
 	public Reply execute(final Call call) {
-		return executeCatchExecption(call);
+		long starttime = System.currentTimeMillis();
+		String parmStr = "parms to json has exception"; 
+		try { 
+			parmStr = parmsToJsonString(call.getParameters());
+		}catch (Exception e) {
+		}
+		callLog.debug(call.getScriptName()+"."+call.getMethodName()+": parms:"+parmStr);
+		Reply r = executeCatchExecption(call);
+		long cost = System.currentTimeMillis() - starttime;
+		try {
+			callLog.debug(call.getScriptName()+"."+call.getMethodName()+", cost:"+cost+"ms  return:"+JSON.toJSONString(r.getReply()));
+		}catch (Exception e) {
+		}
+		return r;
 	}
 	 
 }

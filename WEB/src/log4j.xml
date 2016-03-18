@@ -29,8 +29,16 @@
   
   <!-- All application exceptions/errors will be written here -->  
   <category name="org.directwebremoting.log.accessLog">
-     <priority value="INFO"/>
+     <priority value="DEBUG"/>
      <appender-ref ref="dwrLogFile" />
+  </category>
+  
+  
+    <!-- All DWR startup information will be written here --> 
+  <category name="org.directwebremoting.log.calls">
+     <priority value="DEBUG"/>
+     <appender-ref ref="dwrLogFile" />
+     <appender-ref ref="console" />
   </category>
   
   <!-- All DWR startup information will be written here --> 
