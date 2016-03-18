@@ -116,7 +116,7 @@ public class QrCodeIntf {
 			}
 			hsTrMasterOrder.setOrderId(orderId);
 			hsTrMasterOrder.setCreateDate(createDate);
-			hsTrMasterOrder.setOrderType("1");// 订购单
+			hsTrMasterOrder.setOrderType("3");// 二维码支付
 			hsTrMasterOrder.setCustId(qrCode.getCustId());
 			hsTrMasterOrder.setStoreId(qrCode.getStoreId());
 			hsTrMasterOrder.setCurrency("MOP");
@@ -125,7 +125,7 @@ public class QrCodeIntf {
 			hsTrMasterOrder.setDiscountAmount((double) 0);// DISCOUNT_AMOUNT
 			hsTrMasterOrder.setOrderStatus("01");// 等待付款
 			hsTrMasterOrder.setDiscountAmount((double) 0);
-			hsTrMasterOrder.setPayType("3");// 扫码支付
+			hsTrMasterOrder.setPayType("1");// 在线支付
 
 			// 订单表创建一条记录
 			String insertResult = masterOrderManager

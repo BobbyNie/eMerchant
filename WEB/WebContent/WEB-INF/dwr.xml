@@ -38,18 +38,13 @@
 		<create creator="new"><param name="class" value="com.icbc.mo.emerchant.pay.controller.HsTrPayResultManager" /></create> 
 		<create creator="new"><param name="class" value="com.icbc.mo.emerchant.intf.AuthIntf" /></create>
 		
-		<!-- Tato test -->
 		<create creator="new"><param name="class" value="com.icbc.mo.emerchant.order.controller.ViewMasterOrderManager" /></create> 
 		<create creator="new"><param name="class" value="com.icbc.mo.emerchant.order.controller.HsTrMasterOrderManager" /></create> 
 		<create creator="new"><param name="class" value="com.icbc.mo.emerchant.deliver.controller.HsTrDeliverCountManager" /></create>
 		<create creator="new"><param name="class" value="com.icbc.mo.emerchant.intf.DeliverIntf" /></create>
 		<create creator="new"><param name="class" value="com.icbc.mo.emerchant.version.controller.HsTpVersionControlManager" /></create>
-		<!-- Tato test -->
-		
-		<!-- Tony Add -->
 		<create creator="new"><param name="class" value="com.icbc.mo.emerchant.deliver.controller.HsTrDeliveryManager" /></create>
 		<create creator="new"><param name="class" value="com.icbc.mo.emerchant.intf.QrCodeIntf" /></create>
-		<!-- Tony Add end -->
 		
 		<!--Entitys Managers end-->
 		 
@@ -77,18 +72,11 @@
 		<convert match="com.icbc.mo.emerchant.pay.HsTrPayInfo"  converter="bean"> </convert> 
 		<convert match="com.icbc.mo.emerchant.pay.HsTrPayResult"  converter="bean"> </convert> 
 		
-		
-		<!-- Tato test -->
 		<convert match="com.icbc.mo.emerchant.order.ViewMasterOrder"  converter="bean"> </convert> 
 		<convert match="com.icbc.mo.emerchant.order.HsTrMasterOrder"  converter="bean"> </convert> 
 		<convert match="com.icbc.mo.emerchant.deliver.HsTrDeliverCount"  converter="bean"> </convert> 
 		<convert match="com.icbc.mo.emerchant.version.HsTpVersionControl"  converter="bean"> </convert> 
-		<!-- Tato test --> 
-		
-		<!-- Tony Add -->
-		<convert match="com.icbc.mo.emerchant.deliver.HsTrDelivery"  converter="bean"> </convert> 
-		<!-- Tony Add End -->
-		 
+		<convert match="com.icbc.mo.emerchant.deliver.HsTrDelivery"  converter="bean"> </convert>	 
 		<convert match="com.icbc.mo.emerchant.order.ViewSubOrder"  converter="bean"> </convert> 
 		
 		<!-- Enums  -->
