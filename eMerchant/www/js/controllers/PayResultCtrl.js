@@ -4,7 +4,7 @@ app.controller('PayResultCtrl', ['$scope', '$state', '$stateParams','QrCodeIntf'
 
     $scope.failReason = $stateParams.failReason;
 
-    QrCodeIntf.getThisOrderInfo().then(function (succ) { //dwr返回值错误 二进制格式 改Long
+    QrCodeIntf.getThisOrderInfo($stateParams.orderId).then(function (succ) { //dwr返回值错误 二进制格式 改Long
       if (succ != null && succ.res == true) {
         $scope.orderId = succ.data.orderId;
         $scope.costAmount = succ.data.costAmount /100;

@@ -1,8 +1,6 @@
 <!--Created by Tato Lu on 16/2/2016.-->
-
 <ion-view view-title="惠生活 - 當日訂單管理" name="dashboard-view" hide-tab-bar>
   <ion-content overflow-scroll="true">
-
     <ion-refresher
       pulling-text="下拉刷新..."
       on-refresh="doRefresh()">
@@ -23,10 +21,10 @@
       ng-repeat="x in fullList | orderBy: '-createDate' | filterBy: ['orderId','createDate','custPhone','userName','currency','costAmount','realAmount']: search_key">
       <ion-item type="item-text-wrap" ng-click="showOrderDetail(x)"
                 style="line-height: 22px; font-size: 14px; border-bottom-color: #f0f0f0; border-left: hidden; border-right: hidden; border-top: hidden;">
-        <div style="padding-top: 0px">订单编号： <span ng-bind="x.orderId"></span></div>
-        <div>时间： <span ng-bind="x.createDate"></span></div>
-        <div>实收金额： <span ng-bind="x.currency"></span>　<span ng-bind="x.realAmount"></span></div>
-        <div>收货人： <span ng-bind="x.userName"></span>　(<span ng-bind="x.custPhone"></span>)</div>
+        <div style="padding-top: 0px">訂單編號： <span ng-bind="x.orderId"></span></div>
+        <div>時間： <span ng-bind="x.createDate"></span></div>
+        <div>實收金額： <span ng-bind="x.currency"></span>　<span ng-bind="x.realAmount"></span></div>
+        <div>收貨人： <span ng-bind="x.userName"></span>　(<span ng-bind="x.custPhone"></span>)</div>
         <div><span ng-bind="x.custAddr"></span></div>
 
 

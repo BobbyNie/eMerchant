@@ -2,6 +2,7 @@
 app.factory('NoticeService', ['QrCodeIntf', '$rootScope', '$interval', '$cordovaNativeAudio', '$log', function (QrCodeIntf, $rootScope, $interval, $cordovaNativeAudio, $log) {
   var payResult = null;
   var closeNotice = false;
+  var iconType = 'ion-help-circled';
   var updatePayStatus = false;
 
   return {
@@ -21,10 +22,12 @@ app.factory('NoticeService', ['QrCodeIntf', '$rootScope', '$interval', '$cordova
                   case "19":
                   case "29":
                     payResult = "支付失败";
+                    iconType = 'ion-close-circled';
                     updatePayStatus = true;
                     break;
                   case "31":
                     payResult = "支付成功";
+                    iconType = 'ion-ios-checkmark';
                     updatePayStatus = true;
                     break;
                 }
@@ -37,6 +40,7 @@ app.factory('NoticeService', ['QrCodeIntf', '$rootScope', '$interval', '$cordova
                           $rootScope.notices[k].realAmount = succ.data[i].realAmount / 100;
                           $rootScope.notices[k].updateDate = succ.data[i].updateDate;
                           $rootScope.notices[k].payResult = payResult;
+                          $rootScope.notices[k].iconType = iconType;
                         }
                       }
                       $rootScope.unreadNoticeCount++;

@@ -1,37 +1,26 @@
 <ion-view view-title="店员：{{username}}" name="payconfirm-view" cache-view='false' class="col-center">
-  <ion-nav-buttons side="left">
-    <button class="button button-icon" ng-click="myGoBack()"></button>
-  </ion-nav-buttons>
   <ion-content>
     <ion-list>
       <ion-item style="padding-bottom: 10px;padding-top: 30px; border: hidden">
         <label class="item item-input" style="height: 60px">
           <i class="icon placeholder-icon" style="font-size: 25px">MOP</i>
-          <input class="money-input" ng-model="data.costAmount" ng-disabled="buttonTextChange" type="number" placeholder="請輸入總金額" required
-                 style="width: 100%;
-  border: 0px;
-  padding: 0px 10px 0px 10px;
-  font-size: 25px;
-  font-weight: bold;
-  color: #fb5555;
-  line-height:70px;
-  height: 80px;">
+          <input class="money-input" ng-model="data.costAmount" ng-disabled="isConfirmAmount" type="number" placeholder="請輸入總金額" required
+                 style="width: 100%;border: 0px;  padding: 0px 10px 0px 10px;  font-size: 25px;  font-weight: bold;  color: #fb5555;  line-height:70px;  height: 80px;">
         </label>
       </ion-item>
       <ion-item style="border: hidden">
-        <button class="button button-block eMerchanColor" ng-show="!buttonTextChange" ng-click="confirmAmount(data)">
+        <button class="button button-block eMerchanColor" ng-show="!isConfirmAmount" ng-click="confirmAmount(data)">
           確認金額
         </button>
-        <button class="button button-block eMerchanColor" ng-show="buttonTextChange" ng-click="goBackToDash()">处理其他订单
+        <button class="button button-block eMerchanColor" ng-show="isConfirmAmount" ng-click="goBackToDash()">处理其他订单
         </button>
       </ion-item>
       <ion-item style="padding-top: 5px;padding-bottom: 0px;padding-left: 30px; border: hidden">
         <label class="text-left ion-android-person h4" style="color: #999999" >&nbsp;客人手機號: {{custPhone}}</label><br><br>
         <label class="text-left ion-android-warning h4" style="color: #999999" >&nbsp;温馨提示: 请于5分钟内完成金额确认！</label><br><br>
-        <label class="text-center ion-android-done h4" style="color: #999999" ng-show="buttonTextChange">&nbsp;待客户付款</label><br>
+        <label class="text-center ion-android-done h4" style="color: #999999" ng-show="isConfirmAmount">&nbsp;待客户付款</label><br>
       </ion-item>
     </ion-list>
 
   </ion-content>
 </ion-view>
-

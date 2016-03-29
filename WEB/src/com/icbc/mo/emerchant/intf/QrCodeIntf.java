@@ -25,7 +25,6 @@ public class QrCodeIntf {
 
 	private static HsTrMasterOrderManager masterOrderManager = new HsTrMasterOrderManager();
 	private static HsTrQrcodeManager qrCodeManager = new HsTrQrcodeManager();
-	private static HsTrMasterOrder hsTrMasterOrder = new HsTrMasterOrder();
 	private static HsTrCustInfoManager custInfoManager = new HsTrCustInfoManager();
 
 	protected static final class NamedQueries {
@@ -44,10 +43,11 @@ public class QrCodeIntf {
 
 	// 获取客户手机号码
 	public String getCustInfoByQrCodeId(String qrCodeId, StoreToken token) {
-		HsTrQrcode qrCode = new HsTrQrcode();
-		HsTrCustInfo custInfo = new HsTrCustInfo();
+
 		String result = null;
 		try {
+			HsTrQrcode qrCode = new HsTrQrcode();
+			HsTrCustInfo custInfo = new HsTrCustInfo();
 			qrCode = qrCodeManager.findHsTrQrcodeByQrCodeId(qrCodeId);
 			custInfo = custInfoManager.findHsTrCustInfoByCustId(qrCode.getCustId());
 			result = custInfo.getPhone();
@@ -96,24 +96,22 @@ public class QrCodeIntf {
 	}
 
 	// 确认金额，创建订单记录
-	public String insertOneMasterOrderRecord(String qrCodeId,
-			Double costAmount, StoreToken token) throws Exception {
+	public String insertOneMasterOrderRecord(String qrCodeId, Double costAmount, StoreToken token){
+		
 		Date createDate = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
 		int seqId = masterOrderManager.getOrderNoSeq();
 		String orderId = "m" + sdf.format(createDate) + seqId;
 
 		try {
-			HsTrQrcode qrCode = qrCodeManager
-					.findHsTrQrcodeByQrCodeId(qrCodeId);
+			HsTrQrcode qrCode = new HsTrQrcode();
+			HsTrMasterOrder hsTrMasterOrder = new HsTrMasterOrder();
+			qrCode = qrCodeManager.findHsTrQrcodeByQrCodeId(qrCodeId);
 			if (qrCode == null) {
 				// 客户端二维码被扫有效时间超时，商户需重扫二维码
 				return "1";
 			}
-
-			if (hsTrMasterOrder != null) {
-				hsTrMasterOrder = new HsTrMasterOrder();
-			}
+			
 			hsTrMasterOrder.setOrderId(orderId);
 			hsTrMasterOrder.setCreateDate(createDate);
 			hsTrMasterOrder.setOrderType("3");// 二维码支付
@@ -145,23 +143,38 @@ public class QrCodeIntf {
 		return orderId;
 	}
 
-	// 确认金额后等待客户支付
+	// 确认金额后轮询等待客户支付
 	public String getThisOrderStatus(String orderId) {
 		return masterOrderManager.findHsTrMasterOrderByOrderId(orderId).getOrderStatus();
 	}
-
+	
 	// 回传支付完成结果
-	public HsTrMasterOrder getThisOrderInfo(StoreToken token) {
-		String orderId = hsTrMasterOrder.getOrderId();
+	public HsTrMasterOrder getThisOrderInfo(String orderId) {
 		return masterOrderManager.findHsTrMasterOrderByOrderId(orderId);
+	}
+	
+	// 商户取消确认金额
+	public IntfReturnObj orderCanceledbyStore(String qrCodeId, StoreToken token){
+		IntfReturnObj r = new IntfReturnObj();
+		
+		try{
+			HsTrQrcode qrCode = new HsTrQrcode();
+			qrCode = qrCodeManager.findHsTrQrcodeByQrCodeId(qrCodeId);
+			r = updateQrCodeTable(qrCode, 1, token);
+		}catch(Exception e) {
+			IcbcUtil.Execption2String(e);
+		}
+
+		return r;
 	}
 
 	// 获取支付通知信息
 	public List<HsTrMasterOrder> getOrderPayResult(List<String> orderList) {
 
 		List<HsTrMasterOrder> resultlist = new ArrayList<HsTrMasterOrder>();
-		HsTrMasterOrder masterOrder = null;
+		
 		try {
+			HsTrMasterOrder masterOrder = new HsTrMasterOrder();
 			Iterator<String> it = orderList.iterator();
 			while (it.hasNext()) {
 				String orderId = it.next();

@@ -60,6 +60,9 @@ app.config(function ($stateProvider, $urlRouterProvider, USER_ROLES) {
     .state('main.paysuccess', {
       url: 'main/paysuccess',
       cache: 'false',
+      params: {
+        orderId: null
+      },
       views: {
         'dash-tab': {
           templateUrl: './views/qr/paysuccess.html',
@@ -71,7 +74,10 @@ app.config(function ($stateProvider, $urlRouterProvider, USER_ROLES) {
     .state('main.payfail', {
       url: 'main/payfail',
       cache: 'false',
-      params: {failReason: null},
+      params: {
+        failReason: null,
+        orderId: null
+      },
       views: {
         'dash-tab': {
           templateUrl: './views/qr/payfail.html',
@@ -129,19 +135,19 @@ app.config(function ($stateProvider, $urlRouterProvider, USER_ROLES) {
     })
 
     //-----------------------------------------------------------------------
-        //今日订单页面 By Tato
-      .state('main.todayOrder', {
-        url: 'main/todayOrder',
-        cache: 'false',
-        views: {
-          'dash-tab': {
-            templateUrl: './views/todayOrder.html',
-            controller: "TodayOrderCtrl"
-          }
+    //今日订单页面 By Tato
+    .state('main.todayOrder', {
+      url: 'main/todayOrder',
+      cache: 'false',
+      views: {
+        'dash-tab': {
+          templateUrl: './views/todayOrder.html',
+          controller: "TodayOrderCtrl"
         }
-      })
+      }
+    })
 
-        //-----------------------------------------------------------------------
+    //-----------------------------------------------------------------------
     //送货页面 By Vincent
     .state('main.assignGoodsMain', {
       url: 'main/assignGoodsMain',

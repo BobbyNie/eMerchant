@@ -5,8 +5,7 @@
 app.controller('QrCodeCtrl', ['$rootScope', '$scope', '$state', '$stateParams', '$ionicLoading', '$timeout', '$interval', 'QrCodeIntf', 'NoticeService', '$ionicPopup', 'AuthService', '$log', '$q',
   function ($rootScope, $scope, $state, $stateParams, $ionicLoading, $timeout, $interval, QrCodeIntf, NoticeService, $ionicPopup, AuthService, $log, $q) {
 
-    //页面显示跳转
-    $scope.buttonTextChange = false;
+    $scope.isConfirmAmount = false;
 
     if ($stateParams.qrcodeId != null) {
       //通过QRcodeId识别客户
@@ -14,8 +13,8 @@ app.controller('QrCodeCtrl', ['$rootScope', '$scope', '$state', '$stateParams', 
         if (succ != null && succ.res == true) {
           if (!succ.data) {
             var alertPopup1 = $ionicPopup.alert({
-              title: '扫描错误',
-              template: "无匹配用户信息，请重试！"
+              title: '掃描錯誤',
+              template: "無匹配用戶信息，請重試！"
             });
             $state.go('main.dash');
           } else {
@@ -25,8 +24,8 @@ app.controller('QrCodeCtrl', ['$rootScope', '$scope', '$state', '$stateParams', 
         } else {
           $log.error(succ);
           var alertTimeoutPopup = $ionicPopup.alert({
-            title: '系统错误',
-            template: "二维码扫描错误，请重新扫描！"
+            title: '系統錯誤',
+            template: "二維碼掃描錯誤，請重新掃描！"
           });
           $state.go('main.dash');
         }
@@ -34,44 +33,51 @@ app.controller('QrCodeCtrl', ['$rootScope', '$scope', '$state', '$stateParams', 
         $log.error(err);
       });
     }
-    //离开提示框
-    $scope.myGoBack = function () {
-      var confirmPopup = $ionicPopup.confirm({
-        title: '提示',
-        template: '确定是否放弃输入金额</br>',
-        okText: '继续',
-        cancelText: '离开'
-      });
-      confirmPopup.then(function (res) {
-        if (!res) {
-          //$ionicHistory.goBack();
-          $state.go('main.dash', {}, {reload: true});
-        } else {
-          // 继续输入
-        }
-      });
-    };
+
+    //未确认金额时点击返回按钮------------------------------------------------------
+    $scope.$on('$destroy', function () {
+      if(!$scope.isConfirmAmount){
+        QrCodeIntf.orderCanceledbyStore($stateParams.qrcodeId).then(function (succ) {
+          if (succ != null && succ.res == true) {
+            $state.go('main.dash', {}, {reload: true});
+          } else {
+            $log.error(succ);
+            var alertTimeoutPopup = $ionicPopup.alert({
+              title: '系统错误',
+              template: "服务器处理异常！"
+            });
+          }
+        }, function (err) {
+          $log.error(err);
+        });
+      }
+    });
 
     //确认金额-----------------------------------------------------------------------
     $scope.data = {};
     $scope.confirmAmount = function (data) {
-      $scope.buttonTextChange = true;
-      if (data.costAmount == null) {
-        //数额不能为空
+      if(!data.costAmount) {
+        var alertAmountPop = $ionicPopup.alert({
+          title: '輸入提示',
+          template: "輸入金額不能為空！"
+        });
+        return;
       }
+
+      $scope.isConfirmAmount = true;
 
       QrCodeIntf.insertOneMasterOrderRecord($stateParams.qrcodeId, data.costAmount).then(function (succ) {
           if (succ != null && succ.res == true) {
             if (succ.data == "1") {
               var alertPopup2 = $ionicPopup.alert({
-                title: '超时提示',
-                template: "确认输入金额超时，请重新扫描二维码！"
+                title: '超時提示',
+                template: "輸入金額超時，請重新掃描二維碼！"
               });
               $state.go('main.dash');
             } else if (succ.data == "2") {
               var alertPopup3 = $ionicPopup.alert({
-                title: '系统异常',
-                template: "插入订单记录出错！"
+                title: '系統異常',
+                template: "插入訂單記錄出錯！"
               });
               $state.go('main.dash');
             } else {
@@ -80,7 +86,7 @@ app.controller('QrCodeCtrl', ['$rootScope', '$scope', '$state', '$stateParams', 
               $rootScope.pollOrderList.push($scope.orderId);
 
               //开启通知轮询服务
-              if($rootScope.pollOrderList.length == 1){
+              if ($rootScope.pollOrderList.length == 1) {
                 console.log("开启轮询");
                 NoticeService.all();
               }
@@ -90,7 +96,8 @@ app.controller('QrCodeCtrl', ['$rootScope', '$scope', '$state', '$stateParams', 
                   "costAmount": data.costAmount,
                   "realAmount": '',
                   "updateDate": '',
-                  "payResult": '等待付款'
+                  "payResult": '等待付款',
+                  "iconType":'ion-help-circled'
                 });
               checkThisOrderStatus();
             }
@@ -122,21 +129,21 @@ app.controller('QrCodeCtrl', ['$rootScope', '$scope', '$state', '$stateParams', 
                     break;
                   case "09":
                     $scope.failReason = "Customer canceled";
-                    $state.go('main.payfail', {failReason: $scope.failReason});
+                    $state.go('main.payfail', {failReason: $scope.failReason, orderId:$scope.orderId});
                     $interval.cancel(promise);
                     break;
                   case "19":
                     $scope.failReason = "Store closed";
-                    $state.go('main.payfail', {failReason: $scope.failReason});
+                    $state.go('main.payfail', {failReason: $scope.failReason, orderId:$scope.orderId});
                     $interval.cancel(promise);
                     break;
                   case "29":
                     $scope.failReason = "Timeout";
-                    $state.go('main.payfail', {failReason: $scope.failReason});
+                    $state.go('main.payfail', {failReason: $scope.failReason, orderId:$scope.orderId});
                     $interval.cancel(promise);
                     break;
                   case "31":
-                    $state.go('main.paysuccess');
+                    $state.go('main.paysuccess', {orderId:$scope.orderId});
                     $interval.cancel(promise);
                     break;
                 }
@@ -163,7 +170,6 @@ app.controller('QrCodeCtrl', ['$rootScope', '$scope', '$state', '$stateParams', 
     $scope.goBackToDash = function () {
       $state.go('main.dash', {}, {reload: true});
     };
-
 
   }])
 ;

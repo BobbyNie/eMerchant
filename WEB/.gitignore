@@ -26,3 +26,4 @@ Thunbs.db
 .copyarea.db
 *.class
 */WebContent/WEB-INF/classes/*
+/.apt_generated/

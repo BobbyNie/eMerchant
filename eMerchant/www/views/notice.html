@@ -14,25 +14,24 @@
     </ion-refresher>
     <div>
       <ion-list class="list" show-delete="showDelete">
-
-        <ion-item style="border: hidden; font-size: 15px; padding-left: 10px;padding-top: 0px; padding-bottom: 0px"
-                  class="item-remove-animate item-avatar item-icon-left" ng-repeat="notice in notices | orderBy: 'notice.updateDate'"
+        <ion-item style="border:hidden; font-size: 15px; padding-left: 5px;padding-top: 0px; padding-bottom: 0px"
+                  class="item-remove-animatblacke item-avatar item-icon-left" ng-repeat="notice in notices | orderBy: 'notice.updateDate'"
                   type="item-text-wrap">
-          <div class="eMerchanColor-font-red h2"><i class="icon ion-ios-checkmark"></i></div>
+          <div class="eMerchanColor-font-red h2"><i class="icon {{notice.iconType}}"></i></div>
           <div class="row">
             <div class="col" style="text-align: left">訂單號:</div>
             <div class="col col-75" style="color: blue">{{notice.orderId}}</div>
           </div>
           <div class="row">
-            <div class="col col-25" style="text-align: left">订单金额:</div>
+            <div class="col col-25" style="text-align: left">訂單金額:</div>
             <div class="col col-25">MOP {{notice.costAmount}}</div>
-            <div class="col col-25" style="text-align: left">实付金额:</div>
+            <div class="col col-25" style="text-align: left">實付金額:</div>
             <div class="col col-25">MOP {{notice.realAmount}}</div>
           </div>
           <div class="row">
-            <div class="col col-25" style="text-align: left">支付情况:</div>
+            <div class="col col-25" style="text-align: left">支付情況:</div>
             <div class="col col-25" style="color: #e42112">{{notice.payResult}}</div>
-            <div class="col col-25" style="text-align: left">完成时间:</div>
+            <div class="col col-25" style="text-align: left">完成時間:</div>
             <div class="col col-25">{{notice.updateDate}}</div>
           </div>
           <ion-option-button class="button-assertive" ng-click="remove(chat)">
@@ -43,7 +42,7 @@
       </ion-list>
 
       <div ng-if="nodata" class="eMerchanColor-font-black h2" style="text-align: center; padding-top: 30px">
-        <i class="icon ion-ios-alarm-outline"></i>&nbsp;暂无通知信息！
+        <i class="icon ion-ios-alarm-outline"></i>&nbsp;暫無通知消息！
       </div>
 
     </div>

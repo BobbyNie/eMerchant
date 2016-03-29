@@ -21,7 +21,7 @@ app.controller('LoginCtrl', ['$scope', '$state', '$ionicLoading', '$ionicPopup',
           $timeout(function () {
             var alertFailPopup = $ionicPopup.alert({
               title: 'Login failed!',
-              template: 超时
+              template: '登錄超時'
             });
           }, 30000);
         }

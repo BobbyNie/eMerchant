@@ -28,6 +28,12 @@
         "cordova-plugin-file-transfer": {
             "PACKAGE_NAME": "com.ionicframework.emerchant416552"
         },
+        "cordova-plugin-nativeaudio": {
+            "PACKAGE_NAME": "com.ionicframework.emerchant416552"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.ionicframework.emerchant416552"
+        },
         "cordova-plugin-statusbar": {
             "PACKAGE_NAME": "com.ionicframework.emerchant416552"
         },
@@ -44,12 +50,6 @@
             "PACKAGE_NAME": "com.ionicframework.emerchant416552"
         },
         "phonegap-plugin-barcodescanner": {
-            "PACKAGE_NAME": "com.ionicframework.emerchant416552"
-        },
-        "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.ionicframework.emerchant416552"
-        },
-        "cordova-plugin-nativeaudio": {
             "PACKAGE_NAME": "com.ionicframework.emerchant416552"
         }
     },
