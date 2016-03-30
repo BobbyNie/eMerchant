@@ -138,18 +138,17 @@ app.controller('MyCtrl', ['$rootScope','$scope', '$state', '$ionicPopup', '$time
 
 //-------------------------------------------------------------------------------------
     //获取用户信息
-    if(!$rootScope.storeId){
-      HsTrStoreDetailManager.getHsTrStoreDetailByUser().then(function (succ) {
-        if (succ != null && succ.res == true) {
-          $rootScope.storeId = succ.data.storeId;
-          $rootScope.storeNameCn = succ.data.storeNameCn;
-        } else {
-          $log.error(succ);
-        }
-      }, function (err) {
-        $log.error(err);
-      });
-    }
+    HsTrStoreDetailManager.getHsTrStoreDetailByUser().then(function (succ) {
+      if (succ != null && succ.res == true) {
+        $scope.storeId = succ.data.storeId;
+        $scope.storeNameCn = succ.data.storeNameCn;
+      } else {
+        $log.error(succ);
+      }
+    }, function (err) {
+      $log.error(err);
+    });
+
 //-------------------------------------------------------------------------------------------------
   }]);
 

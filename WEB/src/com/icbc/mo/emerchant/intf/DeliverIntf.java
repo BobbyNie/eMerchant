@@ -177,7 +177,7 @@ public class DeliverIntf {
 			//Add a record to hs_tr_order_flow
 			HsTrOrderFlow hsTrOrderFlow = new HsTrOrderFlow();
 			hsTrOrderFlow.setCreateDate(new Date());
-			hsTrOrderFlow.setCreateId(token.getUserData().getId());
+			hsTrOrderFlow.setCreateId(token.getUserData().getUserName());
 			hsTrOrderFlow.setFlowId(UUID.randomUUID().toString().trim().replaceAll("-", ""));
 			hsTrOrderFlow.setMsg("");
 			hsTrOrderFlow.setOperType("31");//Already Finish Order
@@ -206,7 +206,7 @@ public class DeliverIntf {
 				//Add Record
 				HsTrDelivery hsTrDelivery = new HsTrDelivery();
 				hsTrDelivery.setCreateDate(new Date());
-				hsTrDelivery.setCreateId(token.getUserData().getId());
+				hsTrDelivery.setCreateId(token.getUserData().getUserName());
 				hsTrDelivery.setPhone(phone);
 				hsTrDelivery.setStoreId(token.getStoreDetail().getStoreId());
 				courierId = String.valueOf(UUID.randomUUID().toString().trim().replaceAll("-", ""));
@@ -229,7 +229,7 @@ public class DeliverIntf {
 			//Add a record to hs_tr_order_flow
 			HsTrOrderFlow hsTrOrderFlow = new HsTrOrderFlow();
 			hsTrOrderFlow.setCreateDate(new Date());
-			hsTrOrderFlow.setCreateId(token.getUserData().getId());
+			hsTrOrderFlow.setCreateId(token.getUserData().getUserName());
 			hsTrOrderFlow.setFlowId(UUID.randomUUID().toString().trim().replaceAll("-", ""));
 			hsTrOrderFlow.setMsg("");
 			hsTrOrderFlow.setOperType("21");//Already Assigned status
