@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,10 +14,11 @@ import javax.persistence.Query;
 import com.ibm.jpa.web.NamedQueryTarget;
 import com.icbc.IcbcUtil;
 import com.icbc.JpaUtil;
-import com.icbc.mo.emerchant.cust.HsTrCustInfo;
 import com.icbc.mo.emerchant.cust.controller.HsTrCustInfoManager;
 import com.icbc.mo.emerchant.order.HsTrMasterOrder;
+import com.icbc.mo.emerchant.order.HsTrOrderFlow;
 import com.icbc.mo.emerchant.order.controller.HsTrMasterOrderManager;
+import com.icbc.mo.emerchant.order.controller.HsTrOrderFlowManager;
 import com.icbc.mo.emerchant.qr.HsTrQrcode;
 import com.icbc.mo.emerchant.qr.controller.HsTrQrcodeManager;
 import com.icbc.mo.emerchant.store.StoreToken;
@@ -47,10 +49,8 @@ public class QrCodeIntf {
 		String result = null;
 		try {
 			HsTrQrcode qrCode = new HsTrQrcode();
-			HsTrCustInfo custInfo = new HsTrCustInfo();
 			qrCode = qrCodeManager.findHsTrQrcodeByQrCodeId(qrCodeId);
-			custInfo = custInfoManager.findHsTrCustInfoByCustId(qrCode.getCustId());
-			result = custInfo.getPhone();
+			result = custInfoManager.findHsTrCustInfoByCustId(qrCode.getCustId()).getPhone();
 			updateQrCodeTable(qrCode, 2, token);
 
 		} catch (Exception e) {
@@ -119,15 +119,31 @@ public class QrCodeIntf {
 			hsTrMasterOrder.setStoreId(qrCode.getStoreId());
 			hsTrMasterOrder.setCurrency("MOP");
 			hsTrMasterOrder.setCostAmount(costAmount * 100);// COST_AMOUNT
-			hsTrMasterOrder.setRealAmount(costAmount * 100);// REAL_AMOUNT 未做
+			hsTrMasterOrder.setRealAmount(costAmount * 100);// REAL_AMOUNT 
 			hsTrMasterOrder.setDiscountAmount((double) 0);// DISCOUNT_AMOUNT
 			hsTrMasterOrder.setOrderStatus("01");// 等待付款
 			hsTrMasterOrder.setDiscountAmount((double) 0);
 			hsTrMasterOrder.setPayType("1");// 在线支付
 
 			// 订单表创建一条记录
-			String insertResult = masterOrderManager
-					.createHsTrMasterOrder(hsTrMasterOrder);
+			String insertResult = masterOrderManager.createHsTrMasterOrder(hsTrMasterOrder);
+			
+			
+			//插入订单状态变更流水表
+			HsTrOrderFlow orderFlow = new HsTrOrderFlow();
+			HsTrOrderFlowManager orderFlowManager = new HsTrOrderFlowManager();
+			String phone = custInfoManager.findHsTrCustInfoByCustId(qrCode.getCustId()).getPhone();
+			String uuid = UUID.randomUUID().toString().trim().replaceAll("-", "");
+			
+			orderFlow.setCreateDate(createDate);
+			orderFlow.setCreateId(phone);//用户手机号
+			orderFlow.setFlowId(uuid);
+			orderFlow.setOperType("01");
+			orderFlow.setMsg("订单提交成功");
+			orderFlow.setOrderId(orderId);
+			orderFlow.setSourceType("1");//客户发起
+			orderFlowManager.createHsTrOrderFlow(orderFlow);
+			
 			if (insertResult != "true") {
 				// 插入订单记录错误
 				return "2";
