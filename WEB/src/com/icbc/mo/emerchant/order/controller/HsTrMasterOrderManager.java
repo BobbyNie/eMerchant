@@ -10,6 +10,7 @@ import com.ibm.jpa.web.Action;
 import com.ibm.jpa.web.JPAManager;
 import com.ibm.jpa.web.NamedQueryTarget;
 import com.icbc.JpaUtil;
+import com.icbc.mo.emerchant.deliver.controller.HsTrDeliveryAddrManager;
 import com.icbc.mo.emerchant.order.HsTrMasterOrder;
 import com.icbc.mo.emerchant.order.ViewSubOrder;
 import com.icbc.mo.emerchant.store.StoreToken;
@@ -123,10 +124,12 @@ public class HsTrMasterOrderManager {
 	@Action(Action.ACTION_TYPE.FIND)
 	public HsTrMasterOrder findHsTrMasterOrderByOrderId(String orderId) {
 		HsTrMasterOrder hsTrMasterOrder = null;
+		HsTrDeliveryAddrManager hsTrDeliveryAddrManager = new HsTrDeliveryAddrManager();
 		EntityManager em = getEntityManager();
 		try {
-			hsTrMasterOrder = (HsTrMasterOrder) em.find(HsTrMasterOrder.class,
-					orderId);
+			hsTrMasterOrder = (HsTrMasterOrder) em.find(HsTrMasterOrder.class,orderId);
+			String addr = hsTrDeliveryAddrManager.findHsTrDeliveryAddrById(hsTrMasterOrder.getAddr()).getDetailAddr();
+			hsTrMasterOrder.setAddr(addr);
 			if (hsTrMasterOrder != null) {// 在 em close 之前调用get方法 load
 											// ViewSubOrder list
 				List<ViewSubOrder> list = hsTrMasterOrder.getViewsuborderList();

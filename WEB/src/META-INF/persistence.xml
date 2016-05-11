@@ -33,21 +33,21 @@
 			<property name="openjpa.ConnectionUserName" value="hshop"/>
 			<property name="openjpa.ConnectionPassword" value="hshop"/>-->
 			
-			<!-- 开发配置  -->
+			<!-- 开发配置  
 			<property name="openjpa.ConnectionURL" value="jdbc:oracle:thin:@120.25.65.223:1521:hoiian"/>
 			<property name="openjpa.ConnectionUserName" value="elife"/>
 			<property name="openjpa.ConnectionPassword" value="password"/> 
-			
+			-->
 			<!-- 思创演示配置 
 			<property name="openjpa.ConnectionURL" value="jdbc:oracle:thin:@120.25.65.223:1521:hoiian"/>
 			<property name="openjpa.ConnectionUserName" value="elife"/>
 			<property name="openjpa.ConnectionPassword" value="password"/> 
 			-->
-			<!-- 部署配置
-			<property name="openjpa.ConnectionURL" value="jdbc:oracle:thin:@123.12.14.113:11521:wlife"/>
+			<!-- 部署配置-->
+			<property name="openjpa.ConnectionURL" value="jdbc:oracle:thin:@123.12.14.123:11521:wlife"/>
 			<property name="openjpa.ConnectionUserName" value="hshop"/>
 			<property name="openjpa.ConnectionPassword" value="hshop"/> 
-			 -->
+			 
 			
 			
 			<!-- other prop -->
