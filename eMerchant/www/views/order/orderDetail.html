@@ -45,7 +45,9 @@
     </ion-list>
     <ion-list ng-repeat="x in data.viewsuborderList">
       <ion-item type="item-text-wrap"  style="line-height: 22px; font-size: 14px; border-bottom-color: #f0f0f0; border-left: hidden; border-right: hidden; border-top: hidden;">
-        <div><img ng-src="x.imgUrl" style="width:20px;height: 20px" />  <span ng-bind="x.goodsNameCn"></span>   数量： <span ng-bind="x.quantity"></span></div>
+        <div class="row">
+          <div><img ng-src="http://icbcmohs.img-cn-hongkong.aliyuncs.com/{{x.imgUrl}}@1e_1c_0o_0l_20h_20w_90q.src" style="width:20px;height: 20px" />  <span ng-bind="x.goodsNameCn"></span>   数量： <span ng-bind="x.quantity"></span></div>
+        </div>
       </ion-item>
     </ion-list>
 	</ion-content>
