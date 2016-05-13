@@ -3,8 +3,8 @@
   <component name="dataSourceStorageLocal">
     <data-source name="eMerchantWeb/OpenJPA" uuid="85eb1b50-cb87-4d2c-9f42-cfba6996a407">
       <first-sync>true</first-sync>
-      <user-name>elife</user-name>
-      <user-password>dfdadfcbdfd9dfd9dfdddfc5dfd8dfce</user-password>
+      <user-name>hshop</user-name>
+      <user-password>dfc2dfd9dfc2dfc5dfda</user-password>
     </data-source>
   </component>
 </project>

@@ -123,6 +123,8 @@ window.setTimeout(function () {
 }, splashDuration - fadeDuration);
 ```
 
+### iOS Quirks
+
 - `ShowSplashScreenSpinner` (boolean, defaults to `true`): Set to `false`
   to hide the splash-screen spinner.
 

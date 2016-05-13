@@ -198,6 +198,8 @@ public class ViewMasterOrderManager {
         List<ViewMasterOrder> results = null;
         try {
             String parm = token.getStoreDetail().getStoreId();//"200";
+
+            System.out.println("tatotest: parm="+parm);
             Query query = em.createQuery(NamedQueries.getPendingAssignOrder);
             query.setParameter("parm", parm);
             results = (List<ViewMasterOrder>) query.getResultList();

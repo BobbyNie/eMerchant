@@ -5,8 +5,7 @@
       <imported>true</imported>
       <configured-by-url>true</configured-by-url>
       <remarks>$PROJECT_DIR$/src/META-INF/persistence.xml</remarks>
-      <jdbc-driver>oracle.jdbc.driver.OracleDriver</jdbc-driver>
-      <jdbc-url>jdbc:oracle:thin:@120.25.65.223:1521:hoiian</jdbc-url>
+      <jdbc-url>jdbc:oracle:thin:@123.12.14.113:11521:wlife</jdbc-url>
       <explain-plan-config>
         <provider>com.intellij.database.plan.ExplainPlanProvider.NullExplainPlanProvider</provider>
       </explain-plan-config>
