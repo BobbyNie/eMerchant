@@ -1,2 +1,2 @@
 language: java
-script:echo 0
+script: echo 0
